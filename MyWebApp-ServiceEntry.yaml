@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: my-web-app-service-entry
+  namespace: istio-poc
+spec:
+  hosts:
+  - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  ports:
+  - number: 80
+    name: http
+    protocol: HTTP
+  resolution: DNS
+  location: MESH_EXTERNAL
