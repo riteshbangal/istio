@@ -81,3 +81,5 @@ $ kubectl get configmap istio -n istio-system -o yaml | sed 's/mode: REGISTRY_ON
 
 $ kubectl get configmap istio -n istio-system -o yaml > istio-configmap.yaml
 
+
+

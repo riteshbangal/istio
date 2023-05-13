@@ -110,8 +110,6 @@ metadata:
   labels:
     app: ratings
     version: v1
-  annotations:
-    traffic.sidecar.istio.io/includeOutboundIPRanges: "*"
 spec:
   replicas: 1
   selector:
