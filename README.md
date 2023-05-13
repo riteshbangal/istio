@@ -52,3 +52,16 @@ $ echo "$GATEWAY_URL"
 $ echo "http://$GATEWAY_URL/productpage"
 
 
+# Access External URL
+$ kubectl exec -it deployment/ratings-v1 bash
+
+$ curl -sI http://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+
+
+$ export SOURCE_POD=$(kubectl get pod -l app=ratings -o jsonpath='{.items..metadata.name}')
+
+$ kubectl exec "$SOURCE_POD" -c ratings -- curl -sI http://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com | grep  "HTTP/"
+$ kubectl exec "$SOURCE_POD" -c ratings -- curl -sIS https://www.google.com | grep "HTTP/"
+$ kubectl exec "$SOURCE_POD" -c ratings -- curl -sIk https://edition.cnn.com | grep "HTTP/"
+
+
