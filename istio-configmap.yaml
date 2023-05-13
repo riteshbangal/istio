@@ -8,6 +8,8 @@ data:
       tracing:
         zipkin:
           address: zipkin.istio-system:9411
+    outboundTrafficPolicy:
+      mode: ALLOW_ANY
     enablePrometheusMerge: true
     extensionProviders:
     - envoyOtelAls:
@@ -25,7 +27,7 @@ kind: ConfigMap
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","data":{"mesh":"accessLogFile: /dev/stdout\ndefaultConfig:\n  discoveryAddress: istiod.istio-system.svc:15012\n  proxyMetadata: {}\n  tracing:\n    zipkin:\n      address: zipkin.istio-system:9411\nenablePrometheusMerge: true\nextensionProviders:\n- envoyOtelAls:\n    port: 4317\n    service: opentelemetry-collector.istio-system.svc.cluster.local\n  name: otel\n- name: skywalking\n  skywalking:\n    port: 11800\n    service: tracing.istio-system.svc.cluster.local\nrootNamespace: istio-system\ntrustDomain: cluster.local","meshNetworks":"networks: {}"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"install.operator.istio.io/owning-resource":"unknown","install.operator.istio.io/owning-resource-namespace":"istio-system","istio.io/rev":"default","operator.istio.io/component":"Pilot","operator.istio.io/managed":"Reconcile","operator.istio.io/version":"1.17.2","release":"istio"},"name":"istio","namespace":"istio-system"}}
+      {"apiVersion":"v1","data":{"mesh":"accessLogFile: /dev/stdout\ndefaultConfig:\n  discoveryAddress: istiod.istio-system.svc:15012\n  proxyMetadata: {}\n  tracing:\n    zipkin:\n      address: zipkin.istio-system:9411\noutboundTrafficPolicy:\n  mode: ALLOW_ANY\nenablePrometheusMerge: true\nextensionProviders:\n- envoyOtelAls:\n    port: 4317\n    service: opentelemetry-collector.istio-system.svc.cluster.local\n  name: otel\n- name: skywalking\n  skywalking:\n    port: 11800\n    service: tracing.istio-system.svc.cluster.local\nrootNamespace: istio-system\ntrustDomain: cluster.local","meshNetworks":"networks: {}"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2023-05-12T22:15:56Z","labels":{"install.operator.istio.io/owning-resource":"unknown","install.operator.istio.io/owning-resource-namespace":"istio-system","istio.io/rev":"default","operator.istio.io/component":"Pilot","operator.istio.io/managed":"Reconcile","operator.istio.io/version":"1.17.2","release":"istio"},"managedFields":[{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:data":{"f:meshNetworks":{}},"f:metadata":{"f:labels":{"f:install.operator.istio.io/owning-resource":{},"f:install.operator.istio.io/owning-resource-namespace":{},"f:istio.io/rev":{},"f:operator.istio.io/component":{},"f:operator.istio.io/managed":{},"f:operator.istio.io/version":{},"f:release":{}}}},"manager":"istio-operator","operation":"Apply","time":"2023-05-12T22:15:56Z"},{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:data":{"f:mesh":{}},"f:metadata":{"f:annotations":{"f:kubectl.kubernetes.io/last-applied-configuration":{}}}},"manager":"kubectl","operation":"Update","time":"2023-05-13T09:25:50Z"}],"name":"istio","namespace":"istio-system","resourceVersion":"24472","uid":"ae936f0c-d3eb-43ed-8e95-26e0304503de"}}
   creationTimestamp: "2023-05-12T22:15:56Z"
   labels:
     install.operator.istio.io/owning-resource: unknown
@@ -40,11 +42,8 @@ metadata:
     fieldsType: FieldsV1
     fieldsV1:
       f:data:
-        f:mesh: {}
         f:meshNetworks: {}
       f:metadata:
-        f:annotations:
-          f:kubectl.kubernetes.io/last-applied-configuration: {}
         f:labels:
           f:install.operator.istio.io/owning-resource: {}
           f:install.operator.istio.io/owning-resource-namespace: {}
@@ -56,7 +55,18 @@ metadata:
     manager: istio-operator
     operation: Apply
     time: "2023-05-12T22:15:56Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data:
+        f:mesh: {}
+      f:metadata:
+        f:annotations:
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+    manager: kubectl
+    operation: Update
+    time: "2023-05-13T09:31:18Z"
   name: istio
   namespace: istio-system
-  resourceVersion: "648"
+  resourceVersion: "25050"
   uid: ae936f0c-d3eb-43ed-8e95-26e0304503de

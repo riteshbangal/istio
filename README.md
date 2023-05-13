@@ -61,7 +61,23 @@ $ curl -sI http://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
 $ export SOURCE_POD=$(kubectl get pod -l app=ratings -o jsonpath='{.items..metadata.name}')
 
 $ kubectl exec "$SOURCE_POD" -c ratings -- curl -sI http://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com | grep  "HTTP/"
+
 $ kubectl exec "$SOURCE_POD" -c ratings -- curl -sIS https://www.google.com | grep "HTTP/"
+
 $ kubectl exec "$SOURCE_POD" -c ratings -- curl -sIk https://edition.cnn.com | grep "HTTP/"
 
+
+To check the Istio mode specifically in the meshConfig.outboundTrafficPolicy, you can use the following command:
+
+$ kubectl get configmap istio -n istio-system -o jsonpath='{.data.mesh}' | grep mode
+If the output is outboundTrafficPolicy: REGISTRY_ONLY, it means Istio is running in "permissive" mode. If the output is outboundTrafficPolicy: ALLOW_ANY, it means Istio is running in "strict" mode.
+
+$ kubectl get configmap istio -n istio-system -o yaml | sed 's/mode: ALLOW_ANY/mode: REGISTRY_ONLY/g' | kubectl replace -n istio-system -f -
+
+$ kubectl get configmap istio -n istio-system -o yaml > istio-configmap.yaml
+
+
+$ kubectl get configmap istio -n istio-system -o yaml | sed 's/mode: REGISTRY_ONLY/mode: ALLOW_ANY/g' | kubectl replace -n istio-system -f -
+
+$ kubectl get configmap istio -n istio-system -o yaml > istio-configmap.yaml
 
