@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mywebapp-external-url-vs
+  namespace: istio-poc
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - bookinfo-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /proxy-http
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+        port:
+          number: 80
+  # - match:
+  #   - uri:
+  #       exact: /proxy-https
+  #   rewrite:
+  #     uri: "/"
+  #   route:
+  #   - destination:
+  #       host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  #       port:
+  #         number: 443
