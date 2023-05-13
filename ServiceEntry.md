@@ -1,4 +1,8 @@
-# Accessing External Services
+# ServiceEntry
+Istio does not provide service discovery, although most services are automatically added to the registry by Pilot adapters that reflect the discovered services of the underlying platform (Kubernetes, Consul, plain DNS). Additional services can also be registered manually using a ServiceEntry configuration.
+
+
+## Accessing External Services
 Because all outbound traffic from an Istio-enabled pod is redirected to its sidecar proxy by default, accessibility of URLs outside of the cluster depends on the configuration of the proxy. By default, Istio configures the Envoy proxy to pass through requests for unknown services. Although this provides a convenient way to get started with Istio, configuring stricter control is usually preferable.
 
 #### Before you begin

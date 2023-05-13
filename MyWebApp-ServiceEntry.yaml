@@ -7,8 +7,8 @@ spec:
   hosts:
   - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
   ports:
-  - number: 80
-    name: http
-    protocol: HTTP
+  - number: 443
+    name: https
+    protocol: TLS
   resolution: DNS
   location: MESH_EXTERNAL
