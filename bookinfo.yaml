@@ -121,6 +121,14 @@ spec:
       labels:
         app: ratings
         version: v1
+      annotations:
+        sidecar.istio.io/auth-mode: MUTUAL
+        sidecar.istio.io/listenPort: "9080"
+        sidecar.istio.io/listenTLS: "9080"
+        sidecar.istio.io/tlsMode: ISTIO_MUTUAL
+        sidecar.istio.io/cert-chain: /etc/certs/tls.crt
+        sidecar.istio.io/key: /etc/certs/tls.key
+        sidecar.istio.io/root-cert: /etc/certs/root.crt
     spec:
       serviceAccountName: bookinfo-ratings
       containers:
@@ -131,6 +139,14 @@ spec:
         - containerPort: 9080
         securityContext:
           runAsUser: 1000
+        volumeMounts:
+        - name: certs
+          mountPath: /etc/certs
+          readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          secretName: mywebapp-mtls-credentials-secret
 ---
 ##################################################################################################
 # Reviews service

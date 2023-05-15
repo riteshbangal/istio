@@ -10,5 +10,8 @@ spec:
     trafficPolicy:
       tls:
         mode: MUTUAL
-        credentialName: mywebapp-mtls-credentials-secret
-      
+        # credentialName: mywebapp-mtls-credentials-secret
+        clientCertificate: /home/ec2-user/client.crt
+        privateKey: /home/ec2-user/client.key
+        caCertificates: /home/ec2-user/ca.crt
+        

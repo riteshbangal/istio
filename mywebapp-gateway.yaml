@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mywebapp-mtls-gateway
+  namespace: istio-poc
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: MUTUAL
+      credentialName: mywebapp-mtls-credentials-secret
+    hosts:
+    - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
