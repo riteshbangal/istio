@@ -1,10 +1,14 @@
-# apiVersion: networking.istio.io/v1alpha3
-# kind: DestinationRule
-# metadata:
-#   name: mywebapp-external-url-dr
-#   namespace: istio-poc
-# spec:
-#   host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
-#   trafficPolicy:
-#     tls:
-#       mode: DISABLE
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: mywebapp-external-url-dr
+  namespace: istio-poc
+spec:
+  host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  subsets:
+  - name: mtls-connection
+    trafficPolicy:
+      tls:
+        mode: MUTUAL
+        credentialName: mywebapp-mtls-credentials-secret
+      
