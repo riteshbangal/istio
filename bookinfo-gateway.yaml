@@ -39,3 +39,23 @@ spec:
         host: productpage
         port:
           number: 9080
+  - match:
+    - uri:
+        prefix: /health
+    route:
+    - destination:
+        host: ratings
+        port:
+          number: 9080
+  # - match:
+  #   - uri:
+  #       prefix: /mtls
+  #   rewrite:
+  #     uri: "/"
+  #   route:
+  #   - destination:
+  #       host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  #       # host: ratings.istio-poc.svc.cluster.local
+  #       port:
+  #         number: 443
+  #       subset: mtls-connection      

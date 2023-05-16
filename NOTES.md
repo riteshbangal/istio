@@ -17,6 +17,7 @@
 - Along with virtual services, destination rules are a key part of Istio’s traffic routing functionality. You can think of virtual services as how you route your traffic to a given destination, and then you use destination rules to configure what happens to traffic for that destination. Destination rules are applied after virtual service routing rules are evaluated, so they apply to the traffic’s “real” destination.
 - In particular, you use destination rules to specify named service subsets, such as grouping all a given service’s instances by version.
 - By default, Istio uses a round-robin load balancing policy, where each service instance in the instance pool gets a request in turn. Istio also supports the following models, which you can specify in destination rules for requests to a particular service or service subset.
+- Each subset is defined based on one or more labels, which in Kubernetes are key/value pairs that are attached to objects such as Pods.
 
 #### Is it possible to have a DestinationRule object without a VirtualService object in Istio?
 - Yes, it is possible to have a DestinationRule object without a VirtualService object in Istio. The DestinationRule and VirtualService objects are separate resources in Istio, and while they are often used together to configure traffic routing and behavior, they can also be used independently based on your specific requirements.
@@ -27,3 +28,12 @@
 
 - For example, you might use a DestinationRule to specify the load balancing algorithm, connection pool settings, and TLS configuration for a service, without requiring any specific routing rules. In such cases, you can omit the VirtualService object.
 
+# Gateways
+- You use a gateway to manage inbound and outbound traffic for your mesh, letting you specify which traffic you want to enter or leave the mesh. Gateway configurations are applied to standalone Envoy proxies that are running at the edge of the mesh, rather than sidecar Envoy proxies running alongside your service workloads.
+- Gateways are primarily used to manage ingress traffic, but you can also configure egress gateways. An egress gateway lets you configure a dedicated exit node for the traffic leaving the mesh, letting you limit which services can or should access external networks, or to enable secure control of egress traffic to add security to your mesh, for example. You can also use a gateway to configure a purely internal proxy.
+
+
+# PeerAuthentication
+Peer authentication policies specify the mutual TLS mode Istio enforces on target workloads. 
+- PeerAuthentication in Istio is used to define security policies and authentication rules for inbound and outbound connections between services in a service mesh. It allows you to enforce fine-grained control over the identity verification and mutual TLS authentication between services.
+- External services: PeerAuthentication can also be used to secure communication between services in the mesh and external services outside the mesh. You can define authentication policies and configure mTLS for outbound traffic from the mesh to external services.

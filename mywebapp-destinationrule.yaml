@@ -5,13 +5,27 @@ metadata:
   namespace: istio-poc
 spec:
   host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  workloadSelector:
+    matchLabels:
+      app: ratings
+  # trafficPolicy:
+  #   loadBalancer:
+  #     simple: ROUND_ROBIN
+  #   portLevelSettings:
+  #   - port:
+  #       number: 443
+  #     tls:
+  #       mode: MUTUAL
+  #       # credentialName: mywebapp-mtls-credentials-secret
+  #       clientCertificate: /etc/certs/client.crt
+  #       privateKey: /etc/certs/client.key
+  #       caCertificates: /etc/certs/ca.crt
   subsets:
   - name: mtls-connection
     trafficPolicy:
       tls:
         mode: MUTUAL
-        # credentialName: mywebapp-mtls-credentials-secret
-        clientCertificate: /home/ec2-user/client.crt
-        privateKey: /home/ec2-user/client.key
-        caCertificates: /home/ec2-user/ca.crt
-        
+        credentialName: mywebapp-mtls-credentials-secret
+        # clientCertificate: /etc/certs/client.crt
+        # privateKey: /etc/certs/client.key
+        # caCertificates: /etc/certs/ca.crt

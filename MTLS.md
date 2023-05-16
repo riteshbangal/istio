@@ -1,7 +1,7 @@
-kubectl create secret generic external-url-tls --from-file=cert.pem=path/to/certificate.pem --from-file=key.pem=path/to/private-key.pem
+$ kubectl create secret generic external-url-tls --from-file=cert.pem=path/to/certificate.pem --from-file=key.pem=path/to/private-key.pem
 
 
-kubectl create secret generic mywebapp-external-tls-secret --from-file=cert.pem=path/to/certificate.pem --from-file=key.pem=path/to/private-key.pem
+$ kubectl create secret generic mywebapp-external-tls-secret --from-file=cert.pem=path/to/certificate.pem --from-file=key.pem=path/to/private-key.pem
 
 [ec2-user@ip-172-31-40-63 ~]$ openssl x509 -inform der -in client.crt -out client.pem
 [ec2-user@ip-172-31-40-63 ~]$ openssl rsa -in client.key -out client.pem
@@ -10,9 +10,9 @@ kubectl create secret generic mywebapp-external-tls-secret --from-file=cert.pem=
 $ curl -ksI --cert client.crt --key client.key https://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com/ | grep HTTP
 
 
-kubectl create secret tls external-url-tls --key=path/to/private-key.pem --cert=path/to/certificate.pem
+$ kubectl create secret tls external-url-tls --key=path/to/private-key.pem --cert=path/to/certificate.pem
 
-kubectl create secret tls mywebapp-external-tls-secret --key=client.key --cert=client.crt
+$ kubectl create secret tls mywebapp-external-tls-secret --key=client.key --cert=client.crt
 
 ---------------------------------------------------  mywebapp-mtls-credentials-secret ---------------------------------------------------
 The name of the secret that holds the TLS certs for the client including the CA certificates. Secret must exist in the same namespace with the proxy using the certificates. The secret (of type generic)should contain the following keys and values: key: <privateKey>, cert: <clientCert>, cacert: <CACertificate>. Here CACertificate is used to verify the server certificate. Secret of type tls for client certificates along with ca.crt key for CA certificates is also supported. Only one of client certificates and CA certificate or credentialName can be specified.
